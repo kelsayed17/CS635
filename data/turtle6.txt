@@ -1,0 +1,13 @@
+#side = 10
+penDown
+move #side
+turn 90
+#side = 20
+move #side
+turn 90
+#side = 30
+move #side
+turn 90
+#side = 40
+move #side
+turn 90
