@@ -1,5 +1,3 @@
-package tests;
-
 import objects.Student;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class StudentTest {
+class StudentTests {
     private static final Double LOW_GPA = 0.00;
     private static final Double HIGH_GPA = 4.00;
     private static final Double LOW_UNITS = 0.00;
@@ -19,22 +17,22 @@ class StudentTest {
     private Double[] gpas;
     private Double[] units;
 
-    StudentTest() {
+    StudentTests() {
         super();
     }
 
     @BeforeEach
     void init() {
-        final Double MIN = -1000.00;
-        final Double MAX = 1000.00;
+        final double MIN = -1000.00;
+        final double MAX = 1000.00;
 
         gpas = new Double[CAPACITY];
         units = new Double[CAPACITY];
 
         // Fill array with random values
         for (int i = 0; i < CAPACITY; i++) {
-            Double randomGPA = ThreadLocalRandom.current().nextDouble(MIN, MAX);
-            Double randomUnits = ThreadLocalRandom.current().nextDouble(MIN, MAX);
+            double randomGPA = ThreadLocalRandom.current().nextDouble(MIN, MAX);
+            double randomUnits = ThreadLocalRandom.current().nextDouble(MIN, MAX);
             gpas[i] = randomGPA;
             units[i] = randomUnits;
         }
@@ -52,9 +50,7 @@ class StudentTest {
                 assertTrue(student.getGpa() >= LOW_GPA && student.getGpa() <= HIGH_GPA);
                 assertTrue(student.getUnits() >= LOW_UNITS && student.getUnits() <= HIGH_UNITS);
             } else {
-                assertThrows(IllegalArgumentException.class, () -> {
-                    student = new Student(gpa, unit);
-                });
+                assertThrows(IllegalArgumentException.class, () -> student = new Student(gpa, unit));
             }
         }
     }
@@ -69,9 +65,7 @@ class StudentTest {
                 assertTrue(student.getGpa() >= LOW_GPA && student.getGpa() <= HIGH_GPA);
                 assertTrue(student.getUnits() >= LOW_UNITS && student.getUnits() <= HIGH_UNITS);
             } else {
-                assertThrows(IllegalArgumentException.class, () -> {
-                    student = new Student("John Doe", "123456789", "johndoe@sdsu.edu", gpa, unit);
-                });
+                assertThrows(IllegalArgumentException.class, () -> student = new Student("John Doe", "123456789", "johndoe@sdsu.edu", gpa, unit));
             }
         }
     }

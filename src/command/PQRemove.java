@@ -3,8 +3,8 @@ package command;
 import objects.PriorityQueue;
 
 public class PQRemove<E> implements Command {
-    private PriorityQueue<E> priorityQueue;
-    private E element;
+    private final PriorityQueue<E> priorityQueue;
+    private final E element;
 
     public PQRemove(PriorityQueue<E> priorityQueue, E element) {
         this.priorityQueue = priorityQueue;

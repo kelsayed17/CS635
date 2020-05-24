@@ -3,7 +3,7 @@ package command;
 import objects.PriorityQueue;
 
 public class PQPoll<E> implements Command {
-    private PriorityQueue<E> priorityQueue;
+    private final PriorityQueue<E> priorityQueue;
     private E element;
 
     public PQPoll(PriorityQueue<E> priorityQueue) {

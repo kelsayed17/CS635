@@ -4,7 +4,6 @@ import command.PQPoll;
 import command.PQRemove;
 import objects.PriorityQueue;
 import objects.Student;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,21 +11,21 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PriorityQueueTest {
+class PriorityQueueTests {
     private Student[] values;
     private Student[] sorted;
     private PriorityQueue<Student> priorityQueue;
     private Invoker invoker;
 
-    PriorityQueueTest() {
+    PriorityQueueTests() {
         super();
     }
 
     @BeforeEach
     void init() {
         final int CAPACITY = 10;
-        final Double MAX_GPA = 4.00;
-        final Double MAX_UNITS = 150.00;
+        final double MAX_GPA = 4.00;
+        final double MAX_UNITS = 150.00;
 
         values = new Student[CAPACITY];
         sorted = new Student[CAPACITY];
@@ -38,8 +37,8 @@ class PriorityQueueTest {
 
         for (int i = 0; i < values.length; i++) {
 
-            Double randomGPA = random.nextDouble() * MAX_GPA;
-            Double randomUnits = random.nextDouble() * MAX_UNITS;
+            double randomGPA = random.nextDouble() * MAX_GPA;
+            double randomUnits = random.nextDouble() * MAX_UNITS;
 
             Student student = new Student(randomGPA, randomUnits);
             values[i] = student;
@@ -57,16 +56,14 @@ class PriorityQueueTest {
 
         for (int i = last; i >= 0; i--) {
             Student maxValue = sorted[i];
-            Assertions.assertEquals(maxValue, priorityQueue.peek());
+            assertEquals(maxValue, priorityQueue.peek());
             priorityQueue.poll();
         }
     }
 
     @Test
     void add() {
-        assertThrows(NullPointerException.class, () -> {
-            priorityQueue.add(null);
-        });
+        assertThrows(NullPointerException.class, () -> priorityQueue.add(null));
 
         Student maxValue = sorted[0];
 
@@ -76,7 +73,7 @@ class PriorityQueueTest {
             if (priorityQueue.comparator().compare(value, maxValue) > 0)
                 maxValue = value;
 
-            Assertions.assertEquals(maxValue, priorityQueue.peek());
+            assertEquals(maxValue, priorityQueue.peek());
         }
     }
 
@@ -88,7 +85,7 @@ class PriorityQueueTest {
 
         for (int i = last; i >= 0; i--) {
             Student maxValue = sorted[i];
-            Assertions.assertEquals(maxValue, priorityQueue.poll());
+            assertEquals(maxValue, priorityQueue.poll());
         }
         assertNull(priorityQueue.poll());
     }
@@ -97,7 +94,7 @@ class PriorityQueueTest {
     void iterator() {
         Collections.addAll(priorityQueue, values);
         Object[] objects = priorityQueue.toArray();
-        Iterator iterator = priorityQueue.iterator();
+        Iterator<Student> iterator = priorityQueue.iterator();
 
         int i = 0;
         while (iterator.hasNext()) {
@@ -107,11 +104,13 @@ class PriorityQueueTest {
 
         int j = 0;
         for (Student student : priorityQueue) {
-            Assertions.assertEquals(student, objects[j]);
+            assertEquals(student, objects[j]);
             j++;
         }
 
         priorityQueue.poll();
+
+        //noinspection ResultOfMethodCallIgnored
         assertThrows(ConcurrentModificationException.class, iterator::hasNext);
         assertThrows(ConcurrentModificationException.class, iterator::next);
         assertThrows(UnsupportedOperationException.class, iterator::remove);
@@ -153,7 +152,7 @@ class PriorityQueueTest {
             if (priorityQueue.comparator().compare(value, maxValue) > 0)
                 maxValue = value;
 
-            Assertions.assertEquals(maxValue, priorityQueue.peek());
+            assertEquals(maxValue, priorityQueue.peek());
         }
     }
 
@@ -164,7 +163,7 @@ class PriorityQueueTest {
 
         for (int i = last; i >= 0; i--) {
             Student maxValue = sorted[i];
-            Assertions.assertEquals(maxValue, priorityQueue.peek());
+            assertEquals(maxValue, priorityQueue.peek());
             invoker.execute(new PQPoll<>(priorityQueue));
         }
     }
@@ -284,7 +283,7 @@ class PriorityQueueTest {
     void toArray() {
         Collections.addAll(priorityQueue, values);
         Object[] array = priorityQueue.toArray();
-        Iterator iterator = priorityQueue.iterator();
+        Iterator<Student> iterator = priorityQueue.iterator();
 
         int i = 0;
         while (iterator.hasNext()) {
@@ -293,7 +292,7 @@ class PriorityQueueTest {
         }
     }
 
-    private boolean isHeap(Object heap[]) {
+    private boolean isHeap(Object[] heap) {
         int end = heap.length - 1;
 
         for (int i = 0; i <= (heap.length - 2) / 2; i++) {

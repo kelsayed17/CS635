@@ -3,7 +3,7 @@ package command;
 import java.util.Stack;
 
 public class Invoker {
-    private Stack<Command> undoStack = new Stack<>();
+    private final Stack<Command> undoStack = new Stack<>();
 
     public void execute(Command command) {
         command.execute();

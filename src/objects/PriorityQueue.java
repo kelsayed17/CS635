@@ -224,7 +224,7 @@ public class PriorityQueue<E> extends AbstractQueue<E> {
     @SuppressWarnings("unchecked")
     public Iterator<E> iterator() {
         return new Iterator<>() {
-            private int expectedModCount = modCount;
+            private final int expectedModCount = modCount;
             private int index = 0;
 
             public boolean hasNext() {
